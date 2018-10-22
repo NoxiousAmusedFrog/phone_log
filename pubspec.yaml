@@ -5,12 +5,12 @@ author: Jiaming Cheng <jiamingc@google.com>
 homepage: https://github.com/jiajiabingcheng/phone_log
 
 environment:
-  sdk: ">=1.19.0 <2.0.0"
+  sdk: ">=1.19.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  fixnum: ^0.10.7
+  fixnum: ^0.10.8
 
 # The following section is specific to Flutter.
 flutter:
@@ -19,6 +19,6 @@ flutter:
     pluginClass: PhoneLogPlugin
 
 dev_dependencies:
-  mockito: ^2.0.2
+#  mockito: ^2.0.2
   flutter_test:
     sdk: flutter
