@@ -50,21 +50,27 @@ class CallRecord {
     this.formattedNumber,
     this.number,
     this.callType,
+    this.cashed_name,
     this.dateYear,
     this.dateMonth,
     this.dateHour,
     this.dateMinute,
     this.dateSecond,
     this.duration,
+    this.cashed_number_type,
+    this.phone_account_id,
+    this.cashed_photo_uri
   });
 
-  String formattedNumber, number, callType;
+  String formattedNumber, number, callType, cashed_name, cashed_number_type, phone_account_id, cashed_photo_uri;
   int dateYear, dateMonth, dateDay, dateHour, dateMinute, dateSecond, duration;
+
 
   CallRecord.fromMap(Map m) {
     formattedNumber = m['formattedNumber'];
     number = m['number'];
     callType = m['callType'];
+    cashed_name = m['cashed_name'];
     dateYear = m['dateYear'];
     dateMonth = m['dateMonth'];
     dateDay = m['dateDay'];
@@ -72,5 +78,8 @@ class CallRecord {
     dateMinute = m['dateMinute'];
     dateSecond = m['dateSecond'];
     duration = m['duration'];
+    cashed_number_type = m['cashed_number_type'];
+    phone_account_id = m['phone_account_id'];
+    cashed_photo_uri = m['cashed_photo_uri'];
   }
 }

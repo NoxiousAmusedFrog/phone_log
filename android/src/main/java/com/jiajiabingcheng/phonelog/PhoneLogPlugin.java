@@ -7,6 +7,9 @@ import android.database.Cursor;
 import android.os.Build;
 import android.provider.CallLog;
 import android.util.Log;
+import android.provider.ContactsContract.CommonDataKinds;
+import android.content.Context;
+
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -93,10 +96,16 @@ public class PhoneLogPlugin implements MethodCallHandler,
 
     private static final String[] PROJECTION =
             {CallLog.Calls.CACHED_FORMATTED_NUMBER,
-                    CallLog.Calls.CACHED_MATCHED_NUMBER,
+                    //CallLog.Calls.CACHED_MATCHED_NUMBER,
+                    CallLog.Calls.NUMBER,
                     CallLog.Calls.TYPE,
+                    CallLog.Calls.CACHED_NAME,
                     CallLog.Calls.DATE,
-                    CallLog.Calls.DURATION,};
+                    CallLog.Calls.DURATION,
+                    CallLog.Calls.CACHED_NUMBER_TYPE,
+                    CallLog.Calls.PHONE_ACCOUNT_ID,
+                    CallLog.Calls.CACHED_PHOTO_URI
+            };
 
     @TargetApi(Build.VERSION_CODES.M)
     private void fetchCallRecords(String startDate, String duration) {
@@ -154,8 +163,9 @@ public class PhoneLogPlugin implements MethodCallHandler,
             record.formattedNumber = cursor.getString(0);
             record.number = cursor.getString(1);
             record.callType = getCallType(cursor.getInt(2));
+            record.cashed_name = cursor.getString(3);
 
-            Date date = new Date(cursor.getLong(3));
+            Date date = new Date(cursor.getLong(4));
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
             record.dateYear = cal.get(Calendar.YEAR);
@@ -164,7 +174,10 @@ public class PhoneLogPlugin implements MethodCallHandler,
             record.dateHour = cal.get(Calendar.HOUR_OF_DAY);
             record.dateMinute = cal.get(Calendar.MINUTE);
             record.dateSecond = cal.get(Calendar.SECOND);
-            record.duration = cursor.getLong(4);
+            record.duration = cursor.getLong(5);
+            record.cashed_number_type = getPhoneType(cursor.getInt(6));
+            record.phone_account_id = cursor.getString(7);
+            record.cashed_photo_uri = cursor.getString(8);
 
             records.add(record.toMap());
         }
@@ -174,11 +187,28 @@ public class PhoneLogPlugin implements MethodCallHandler,
     private String getCallType(int anInt) {
         switch (anInt) {
             case CallLog.Calls.INCOMING_TYPE:
-                return "INCOMING_TYPE";
+                return "исходящий";
             case CallLog.Calls.OUTGOING_TYPE:
-                return "OUTGOING_TYPE";
+                return "входящий";
             case CallLog.Calls.MISSED_TYPE:
-                return "MISSED_TYPE";
+                return "пропущенный";
+            default:
+                break;
+        }
+        return null;
+    }
+
+
+    private String getPhoneType(int anInt) {
+        switch (anInt) {
+            case CommonDataKinds.Phone.TYPE_HOME:
+                return "домашний";
+            case CommonDataKinds.Phone.TYPE_MOBILE:
+                return "мобильный";
+            case CommonDataKinds.Phone.TYPE_WORK:
+                return "рабочий";
+            case CommonDataKinds.Phone.TYPE_OTHER:
+                return "другой";
             default:
                 break;
         }
