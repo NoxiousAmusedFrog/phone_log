@@ -187,9 +187,9 @@ public class PhoneLogPlugin implements MethodCallHandler,
     private String getCallType(int anInt) {
         switch (anInt) {
             case CallLog.Calls.INCOMING_TYPE:
-                return "исходящий";
-            case CallLog.Calls.OUTGOING_TYPE:
                 return "входящий";
+            case CallLog.Calls.OUTGOING_TYPE:
+                return "исходящий";
             case CallLog.Calls.MISSED_TYPE:
                 return "пропущенный";
             default:
