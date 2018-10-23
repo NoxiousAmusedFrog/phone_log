@@ -17,6 +17,9 @@ dev_dependencies:
   phone_log:
     path: ../
 
+  sms:
+    path: C:\AndroidStudioProjects\sms-0.2.4
+
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
 
@@ -32,6 +35,9 @@ flutter:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
+
+  assets:
+  - img/noimage.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

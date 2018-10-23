@@ -115,14 +115,14 @@ public class PhoneLogPlugin implements MethodCallHandler,
             if (startDate != null) {
                 selectionCondition = CallLog.Calls.DATE + "> " + startDate;
             }
-            if (duration != null) {
-                String durationSelection = CallLog.Calls.DURATION + "> " + duration;
-                if (selectionCondition != null) {
-                    selectionCondition = selectionCondition + " AND " + durationSelection;
-                } else {
-                    selectionCondition = durationSelection;
-                }
-            }
+//            if (duration != null) {
+//                String durationSelection = CallLog.Calls.DURATION + "> " + duration;
+//                if (selectionCondition != null) {
+//                    selectionCondition = selectionCondition + " AND " + durationSelection;
+//                } else {
+//                    selectionCondition = durationSelection;
+//                }
+//            }
             Cursor cursor = registrar.context().getContentResolver().query(
                     CallLog.Calls.CONTENT_URI, PROJECTION,
                     selectionCondition,

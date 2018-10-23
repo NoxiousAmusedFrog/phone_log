@@ -4,19 +4,19 @@ import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_log/phone_log.dart';
 
-//import 'package:sms/contact.dart';
+import 'package:sms/contact.dart';
 
 //Future<ContactSMS>  myContactSMS;
-//ContactSMS myContactSMS;
+ContactSMS myContactSMS;
 
-//Future getContactSMS(String searchString) async {
-//  ContactQuery contacts = new ContactQuery();
-//  try {
-//    myContactSMS = await contacts.queryContact(searchString);
-//  } catch (Exception) {
-//    //myContactSMS.photo = AssetImage();
-//  }
-//}
+ getContactSMS(String searchString) async {
+  ContactQuery contacts = new ContactQuery();
+  try {
+    myContactSMS = await contacts.queryContact(searchString);
+  } catch (Exception) {
+    //myContactSMS.photo = AssetImage();
+  }
+}
 
 void main() => runApp(new MyApp());
 
@@ -26,17 +26,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-//  Iterable<CallRecord> _callRecords;
-//  var phoneLog = new PhoneLog();
-//
-//  Future<Null> fetchCallLogs() async {
-//    var callLogs = await phoneLog.getPhoneLogs(
-//        // startDate: 20180605, duration: 15 seconds
-//        startDate: new Int64(1525590000000),
-//        duration: new Int64(1));
-//    setState(() {
-//      _callRecords = callLogs;
-//    });
 
   Iterable<CallRecord> _callRecords;
   var phoneLog = new PhoneLog();
@@ -46,6 +35,7 @@ class _MyAppState extends State<MyApp> {
       // startDate: 20180605, duration: 15 seconds
         startDate: new Int64(1525590000000),
         duration: new Int64(1));
+        //duration: new Int64(1));
     setState(() {
       _callRecords = callLogs;
 
@@ -77,7 +67,7 @@ class _MyAppState extends State<MyApp> {
 
     return new MaterialApp(
       home: new Scaffold(
-        appBar: new AppBar(title: new Text('CallLog example')),
+        appBar: new AppBar(title: new Text('CallLog Plugin Test')),
 //        body: new Center(
 //          child: new Column(children: children),
         body:
@@ -85,16 +75,14 @@ class _MyAppState extends State<MyApp> {
             ?
         ListView.builder(
           itemCount: _callRecords?.length,
-          itemBuilder: (context, index) {
-            return new FutureBuilder(
-              //future: getContactSMS(_callRecords?.elementAt(index)?.number?.toString() ?? '112'),
-                builder: (context, snapshot) {
+          itemBuilder: (context, index)  {
+                  getContactSMS(_callRecords?.elementAt(index)?.number?.toString() ?? '112');
                   return ListTile(
                     leading: (_callRecords != null && _callRecords.length > 0)
                         ?
                     CircleAvatar(
                         radius: 24.0,
-                        //backgroundImage: MemoryImage(myContactSMS.thumbnail.bytes))
+//                        backgroundImage: MemoryImage(myContactSMS.thumbnail.bytes) ?? Image.asset('img/noimage.jpg'))
                         child: Text("Av"))
                         :
                     CircleAvatar(
@@ -110,26 +98,20 @@ class _MyAppState extends State<MyApp> {
                             (_callRecords?.elementAt(index)?.number?.toString() ?? 'неизвестный номер') + ' ' +
                             (_callRecords?.elementAt(index)?.cashed_number_type?.toString() ?? 'неизвестно') + '\n' +
                             (_callRecords?.elementAt(index)?.phone_account_id?.toString() ?? 'ID')
-//                            + '\n' +   (myContactSMS.fullName ?? 'fullName')
-//                       (_callRecords?.elementAt(index)?.cashed_photo_uri?.toString() ?? 'cashed_photo_uri')
+//                               (myContactSMS.fullName ?? 'fullName')
+//                       + '\n' +(_callRecords?.elementAt(index)?.cashed_photo_uri?.toString() ?? 'cashed_photo_uri')
                     ),
 
                     trailing: Text(
-                      //(_callRecords?.elementAt(index)?.dateDay?.toString() ?? 'день') + '/' +
-                      //(_callRecords?.elementAt(index)?.dateMonth?.toString() ?? 'месяц') + '/' +
-                      //(_callRecords?.elementAt(index)?.dateYear?.toString() ?? 'год') + ' ' +
                         (_callRecords?.elementAt(index)?.dateHour?.toString() ?? 'час') + ':' +
                             (_callRecords?.elementAt(index)?.dateMinute?.toString() ?? 'минута') + '\n' +
                             (_callRecords?.elementAt(index)?.dateDay?.toString() ?? 'день') + '/' +
                             (_callRecords?.elementAt(index)?.dateMonth?.toString() ?? 'месяц') + '/' +
-                            (_callRecords?.elementAt(index)?.dateYear?.toString() ?? 'год')
-//                         + ' ' +   (_callRecords?.elementAt(index)?.dateHour?.toString() ?? 'час')
-                      // + ':' (_callRecords?.elementAt(index)?.dateSecond?.toString() ?? 'секунда')
+                            (_callRecords?.elementAt(index)?.dateYear?.toString() ?? 'год'),
+                        style: TextStyle(color: Colors.grey, fontSize: 14.0),
+                        textAlign: TextAlign.right
                     ),
                   );
-                }
-            );
-
           },
         )
             :
