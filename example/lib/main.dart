@@ -77,6 +77,7 @@ class _MyAppState extends State<MyApp> {
           itemCount: _callRecords?.length,
           itemBuilder: (context, index)  {
                   getContactSMS(_callRecords?.elementAt(index)?.number?.toString() ?? '112');
+//                  phoneLog.
                   return ListTile(
                     leading: (_callRecords != null && _callRecords.length > 0)
                         ?

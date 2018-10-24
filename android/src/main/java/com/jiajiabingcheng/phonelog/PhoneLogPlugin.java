@@ -115,7 +115,7 @@ public class PhoneLogPlugin implements MethodCallHandler,
 
     private void deleteRow(int idOfRowToDelete) {
         try {
-             getContentResolver().delete(Uri.withAppendedPath(CallLog.Calls.CONTENT_URI, String.valueOf(idOfRowToDelete)), "", null);
+            // getContentResolver().delete(Uri.withAppendedPath(CallLog.Calls.CONTENT_URI, String.valueOf(idOfRowToDelete)), "", null);
         }
         catch (Exception ex) {
             System.out.print("Exception here ");

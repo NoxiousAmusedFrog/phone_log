@@ -44,11 +44,11 @@ class PhoneLog {
   }
 
 
-   deleteItem(
+  Future<bool> deleteItem(
       {Int64 idOfRowToDelete}) async {
-     await _channel.invokeMethod(
+    final bool isDone = await _channel.invokeMethod(
         'deleteItem', {"idOfRowToDelete": idOfRowToDelete});
-    return null;
+    return isDone;
   }
 
 }
