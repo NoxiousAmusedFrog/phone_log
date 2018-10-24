@@ -64,6 +64,10 @@ public class PhoneLogPlugin implements MethodCallHandler,
                 String duration = call.argument("duration");
                 fetchCallRecords(startDate, duration);
                 break;
+            case "deleteItem":
+                int idOfRowToDelete = call.argument("idOfRowToDelete");
+                deleteRow(idOfRowToDelete);
+                break;
             default:
                 result.notImplemented();
         }
@@ -71,8 +75,10 @@ public class PhoneLogPlugin implements MethodCallHandler,
 
     private void requestPermission() {
         Log.i("PhoneLogPlugin", "Requesting permission : " + Manifest.permission.READ_CALL_LOG);
-        String[] perm = {Manifest.permission.READ_CALL_LOG};
+        String[] perm = {Manifest.permission.READ_CALL_LOG,
+                Manifest.permission.WRITE_CALL_LOG};
         registrar.activity().requestPermissions(perm, 0);
+        registrar.activity().requestPermissions(perm, 1);
     }
 
     private boolean checkPermission() {
@@ -106,6 +112,16 @@ public class PhoneLogPlugin implements MethodCallHandler,
                     CallLog.Calls.PHONE_ACCOUNT_ID,
                     CallLog.Calls.CACHED_PHOTO_URI
             };
+
+    private void deleteRow(int idOfRowToDelete) {
+        try {
+             getContentResolver().delete(Uri.withAppendedPath(CallLog.Calls.CONTENT_URI, String.valueOf(idOfRowToDelete)), "", null);
+        }
+        catch (Exception ex) {
+            System.out.print("Exception here ");
+        }
+        pendingResult.success(null);
+    }
 
     @TargetApi(Build.VERSION_CODES.M)
     private void fetchCallRecords(String startDate, String duration) {
@@ -187,11 +203,11 @@ public class PhoneLogPlugin implements MethodCallHandler,
     private String getCallType(int anInt) {
         switch (anInt) {
             case CallLog.Calls.INCOMING_TYPE:
-                return "входящий";
+                return "Входящий";
             case CallLog.Calls.OUTGOING_TYPE:
-                return "исходящий";
+                return "Исходящий";
             case CallLog.Calls.MISSED_TYPE:
-                return "пропущенный";
+                return "Пропущенный";
 //            case CommonDataKinds.Phone.BLOCKED_TYPE:
 //                return "блокированный";
 //            case CommonDataKinds.Phone.REJECTED_TYPE:

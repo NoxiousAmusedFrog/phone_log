@@ -42,6 +42,15 @@ class PhoneLog {
         'getPhoneLogs', {"startDate": _startDate, "duration": _duration});
     return records?.map((m) => new CallRecord.fromMap(m));
   }
+
+
+   deleteItem(
+      {Int64 idOfRowToDelete}) async {
+     await _channel.invokeMethod(
+        'deleteItem', {"idOfRowToDelete": idOfRowToDelete});
+    return null;
+  }
+
 }
 
 /// The class that carries all the data for one call history entry.
