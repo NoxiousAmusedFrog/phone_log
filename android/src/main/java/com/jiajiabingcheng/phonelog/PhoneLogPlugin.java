@@ -203,11 +203,11 @@ public class PhoneLogPlugin implements MethodCallHandler,
     private String getCallType(int anInt) {
         switch (anInt) {
             case CallLog.Calls.INCOMING_TYPE:
-                return "Входящий";
+                return "входящий";
             case CallLog.Calls.OUTGOING_TYPE:
-                return "Исходящий";
+                return "исходящий";
             case CallLog.Calls.MISSED_TYPE:
-                return "Пропущенный";
+                return "пропущенный";
 //            case CommonDataKinds.Phone.BLOCKED_TYPE:
 //                return "блокированный";
 //            case CommonDataKinds.Phone.REJECTED_TYPE:
