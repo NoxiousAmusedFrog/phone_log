@@ -192,21 +192,26 @@ public class PhoneLogPlugin implements MethodCallHandler,
                 return "исходящий";
             case CallLog.Calls.MISSED_TYPE:
                 return "пропущенный";
+//            case CommonDataKinds.Phone.BLOCKED_TYPE:
+//                return "блокированный";
+//            case CommonDataKinds.Phone.REJECTED_TYPE:
+//                return "отклоненный";
             default:
-                break;
+                 break;
         }
         return null;
+
     }
 
 
     private String getPhoneType(int anInt) {
         switch (anInt) {
             case CommonDataKinds.Phone.TYPE_HOME:
-                return "домашний";
+                return "дом";
             case CommonDataKinds.Phone.TYPE_MOBILE:
-                return "мобильный";
+                return "моб";
             case CommonDataKinds.Phone.TYPE_WORK:
-                return "рабочий";
+                return "раб";
             case CommonDataKinds.Phone.TYPE_OTHER:
                 return "другой";
             default:

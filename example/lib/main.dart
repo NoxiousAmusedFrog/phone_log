@@ -94,7 +94,7 @@ class _MyAppState extends State<MyApp> {
                         (_callRecords?.elementAt(index)?.cashed_name?.toString() ?? _callRecords?.elementAt(index)?.number?.toString())
                     ),
                     subtitle: Text(
-                        (_callRecords?.elementAt(index)?.callType?.toString() ?? 'тип?? ') + ' ' +
+                        (_callRecords?.elementAt(index)?.callType?.toString() ?? 'отклоненный ') + ' ' +
                             (_callRecords?.elementAt(index)?.number?.toString() ?? 'неизвестный номер') + ' ' +
                             (_callRecords?.elementAt(index)?.cashed_number_type?.toString() ?? 'неизвестно') + '\n' +
                             (_callRecords?.elementAt(index)?.phone_account_id?.toString() ?? 'ID')
